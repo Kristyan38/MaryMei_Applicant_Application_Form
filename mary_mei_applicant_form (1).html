@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mary Mei Training Skills – Applicant Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    min-height: 100%;
+    width: 100%;
+    background: #23252d;
+    font-family: 'DM Sans', sans-serif;
+    color: #e8eaf0;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 3rem;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    width: 100%;
+    background: #1a1a2e;
+    text-align: center;
+    padding: 2.5rem 1.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50px; left: -50px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(212,175,55,0.12);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: -30px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(212,175,55,0.08);
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: 700;
+    color: #fff;
+    position: relative; z-index: 1;
+    margin-bottom: 6px;
+  }
+  .header p {
+    font-size: 13px;
+    font-weight: 500;
+    color: #d4af37;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    position: relative; z-index: 1;
+  }
+
+  /* ── FORM WRAPPER ── */
+  .form-wrap {
+    width: 100%;
+    max-width: 780px;
+    padding: 2.5rem 1.5rem;
+  }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    color: #d4af37;
+    margin-bottom: 1.25rem;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #3a3d47;
+    margin: 2rem 0;
+  }
+
+  /* ── FIELD ── */
+  .field { margin-bottom: 1.4rem; }
+
+  label.field-label {
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    color: #e8eaf0;
+    margin-bottom: 7px;
+  }
+  label.field-label .req { color: #e07070; margin-left: 2px; }
+
+  input[type=text],
+  input[type=tel],
+  input[type=number],
+  select {
+    width: 100%;
+    padding: 11px 14px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    background: #1c1e26;
+    color: #e8eaf0;
+    border: 1px solid #42454f;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    appearance: auto;
+  }
+  input::placeholder { color: #5e6270; }
+  input:focus, select:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.15);
+  }
+  select option { background: #1c1e26; color: #e8eaf0; }
+
+  /* ── TWO COLUMN GRID ── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  @media (max-width: 520px) {
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+
+  /* ── RADIO & CHECKBOX ── */
+  .radio-group, .check-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .radio-group label,
+  .check-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    color: #d0d3db;
+    cursor: pointer;
+  }
+  .radio-group input[type=radio],
+  .check-group input[type=checkbox] {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    accent-color: #d4af37;
+  }
+
+  .hint {
+    font-size: 12px;
+    color: #666a78;
+    margin-top: 7px;
+  }
+
+  /* ── SUBMIT ── */
+  .submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #1a1a2e;
+    color: #d4af37;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid #d4af37;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.15s;
+    margin-top: 0.75rem;
+  }
+  .submit-btn:hover { background: #22244a; }
+
+  /* ── TOAST ── */
+  #toast {
+    display: none;
+    position: fixed;
+    bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    background: #d4af37;
+    color: #1a1a2e;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 12px 28px;
+    border-radius: 8px;
+    z-index: 999;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Mary Mei Training Skills</h1>
+  <p>Applicant Form</p>
+</div>
+
+<div class="form-wrap">
+
+  <!-- SECTION 1 -->
+  <p class="section-title">Impormasyon ng Aplikante</p>
+
+  <div class="grid-2">
+    <div class="field">
+      <label class="field-label">Buong Pangalan <span class="req">*</span></label>
+      <input id="full_name" type="text" placeholder="Pangalan, Apelyido" />
+    </div>
+    <div class="field">
+      <label class="field-label">Numero ng Telepono <span class="req">*</span></label>
+      <input id="contact_number" type="tel" placeholder="e.g. 09XX-XXX-XXXX" />
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="field">
+      <label class="field-label">Edad <span class="req">*</span></label>
+      <input id="age" type="number" placeholder="Iyong edad" min="18" max="65" />
+    </div>
+    <div class="field">
+      <label class="field-label">Katayuan sa Pag-aasawa <span class="req">*</span></label>
+      <select id="marital_status">
+        <option value="">— Pumili —</option>
+        <option>Walang asawa (Single)</option>
+        <option>May asawa (Married)</option>
+        <option>Hiwalay (Separated)</option>
+        <option>Biyudo/Biyuda (Widowed)</option>
+      </select>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- SECTION 2 -->
+  <p class="section-title">Karanasan sa Ibang Bansa</p>
+
+  <div class="field">
+    <label class="field-label">Mayroon ka bang nakaraang karanasan sa ibang bansa? <span class="req">*</span></label>
+    <div class="radio-group">
+      <label><input type="radio" name="abroad" /> Oo</label>
+      <label><input type="radio" name="abroad" /> Hindi</label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Kung dati kang nasa ibang bansa, saang bansa ka nagtrabaho?</label>
+    <input id="country_abroad" type="text" placeholder="e.g. Saudi Arabia, UAE, Singapore..." />
+    <p class="hint">Iwanang blangko kung hindi applicable.</p>
+  </div>
+
+  <hr />
+
+  <!-- SECTION 3 -->
+  <p class="section-title">Impormasyon ng Sangay</p>
+
+  <div class="field">
+    <label class="field-label">Saang sangay ka nanggaling? <span class="req">*</span></label>
+    <select id="branch">
+      <option value="">— Pumili ng sangay —</option>
+      <option value="ANTIQUE">ANTIQUE</option>
+      <option value="BACOLOD MOTHERS">BACOLOD MOTHERS</option>
+      <option value="BICOL">BICOL</option>
+      <option value="BUTUAN">BUTUAN</option>
+      <option value="CEBU MOTHERS">CEBU MOTHERS</option>
+      <option value="DIGOS MOTHERS">DIGOS MOTHERS</option>
+      <option value="DIPOLOG">DIPOLOG</option>
+      <option value="DUMAGUETE MOTHERS">DUMAGUETE MOTHERS</option>
+      <option value="DUMAGUETE MEIDEN">DUMAGUETE MEIDEN</option>
+      <option value="ILOILO">ILOILO</option>
+      <option value="IPIL MOTHERS">IPIL MOTHERS</option>
+      <option value="MARAMAG BRANCH">MARAMAG BRANCH</option>
+      <option value="MIDSAYAP MEIDEN">MIDSAYAP MEIDEN</option>
+      <option value="PAGADIAN MOTHERS">PAGADIAN MOTHERS</option>
+      <option value="ROXAS">ROXAS</option>
+      <option value="SURIGAO TG INTERNATIONAL">SURIGAO TG INTERNATIONAL</option>
+      <option value="TACLOBAN">TACLOBAN</option>
+      <option value="direct">DIRECT</option>
+      <option value="walk-in">Walk-in</option>
+    </select>
+  </div>
+
+  <div class="grid-2">
+    <div class="field">
+      <label class="field-label">Nagsagawa ka ba ng Pre-Med sa sangay? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="premed" /> Oo</label>
+        <label><input type="radio" name="premed" /> Hindi</label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">Nagsagawa ka ba ng Pre-PT sa sangay? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="prept" /> Oo</label>
+        <label><input type="radio" name="prept" /> Hindi</label>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- SECTION 4 -->
+  <p class="section-title">Kagustuhan at Iba Pang Detalye</p>
+
+  <div class="field">
+    <label class="field-label">Anong bansang gusto mong puntahan para magtrabaho? <span class="req">*</span></label>
+    <select id="preferred_country">
+      <option>Saudi Arabia</option>
+      <option>United Arab Emirates (UAE)</option>
+      <option>Qatar</option>
+      <option>Kuwait</option>
+      <option>Bahrain</option>
+      <option>Oman</option>
+      <option>Israel</option>
+      <option>Singapore</option>
+      <option>Hong Kong</option>
+      <option>Japan</option>
+      <option>Taiwan</option>
+      <option>Iba pa (Others)</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Sino ang liaison officer na nag-pick up sa iyo? <span class="req">*</span></label>
+    <select id="liaison_officer">
+      <option value="">— Pumili ng liaison officer —</option>
+      <option>Richard Oyanon</option>
+      <option>Rya</option>
+      <option>Geneva P. Baylon</option>
+      <option>Walk-in</option>
+      <option>Elly</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Mayroon ka bang pasaporte? <span class="req">*</span></label>
+    <div class="radio-group">
+      <label><input type="radio" name="passport" /> Oo, mayroon akong pasaporte</label>
+      <label><input type="radio" name="passport" /> Hindi, wala akong pasaporte</label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Kung wala kang pasaporte, anong dokumento ang mayroon ka?</label>
+    <div class="check-group">
+      <label><input type="checkbox" id="doc_postal" /> Postal ID</label>
+      <label><input type="checkbox" id="doc_psa" /> PSA Birth Certificate</label>
+      <label><input type="checkbox" id="doc_marriage" /> Marriage Contract</label>
+      <label><input type="checkbox" id="doc_nbi" /> NBI Clearance</label>
+      <label><input type="checkbox" id="doc_comelec" /> Comelec ID or Certificate</label>
+      <label><input type="checkbox" id="doc_wala" /> Walang dokumento</label>
+    </div>
+    <p class="hint">Iwanang blangko kung mayroon kang pasaporte.</p>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Facebook Link o Pangalan <span class="req">*</span></label>
+    <input id="facebook" type="text" placeholder="e.g. facebook.com/iyongpangalan o Juan Dela Cruz" />
+  </div>
+
+  <button class="submit-btn" onclick="submitForm()">Isumite ang Pormularyo ↗</button>
+
+</div>
+
+<div id="toast">Salamat! Natanggap na ang iyong pormularyo. ✓</div>
+
+<script>
+  const WEBHOOK_URL = 'https://kristyan38.app.n8n.cloud/webhook/MaryMeiOnboardingForm';
+
+  async function submitForm() {
+    const docs = [];
+    if (document.getElementById('doc_postal').checked) docs.push('Postal ID');
+    if (document.getElementById('doc_psa').checked) docs.push('PSA Birth Certificate');
+    if (document.getElementById('doc_marriage').checked) docs.push('Marriage Contract');
+    if (document.getElementById('doc_nbi').checked) docs.push('NBI Clearance');
+    if (document.getElementById('doc_comelec').checked) docs.push('Comelec ID or Certificate');
+    if (document.getElementById('doc_wala').checked) docs.push('Walang dokumento');
+
+    const payload = {
+      submitted_at: new Date().toISOString(),
+      full_name: document.getElementById('full_name').value,
+      contact_number: document.getElementById('contact_number').value,
+      age: document.getElementById('age').value,
+      marital_status: document.getElementById('marital_status').value,
+      experience_abroad: document.querySelector('input[name="abroad"]:checked')?.nextSibling?.textContent?.trim() || '',
+      country_abroad: document.getElementById('country_abroad').value,
+      branch: document.getElementById('branch').value,
+      pre_med: document.querySelector('input[name="premed"]:checked')?.nextSibling?.textContent?.trim() || '',
+      pre_pt: document.querySelector('input[name="prept"]:checked')?.nextSibling?.textContent?.trim() || '',
+      preferred_country: document.getElementById('preferred_country').value,
+      liaison_officer: document.getElementById('liaison_officer').value,
+      has_passport: document.querySelector('input[name="passport"]:checked')?.nextSibling?.textContent?.trim() || '',
+      documents: docs,
+      facebook: document.getElementById('facebook').value,
+    };
+
+    try {
+      const btn = document.querySelector('.submit-btn');
+      btn.textContent = 'Nagpapadala...';
+      btn.disabled = true;
+
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const t = document.getElementById('toast');
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 3500);
+      btn.textContent = 'Isumite ang Pormularyo ↗';
+      btn.disabled = false;
+    } catch (err) {
+      alert('May error sa pagpapadala. Subukan ulit.');
+      document.querySelector('.submit-btn').textContent = 'Isumite ang Pormularyo ↗';
+      document.querySelector('.submit-btn').disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
